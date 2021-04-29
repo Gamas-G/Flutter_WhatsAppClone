@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import 'package:whatsapp_clone/src/pages/camara_page.dart';
 import 'package:whatsapp_clone/src/pages/chat_page.dart';
 import 'package:whatsapp_clone/src/pages/estados_page.dart';
 import 'package:whatsapp_clone/src/pages/llamadas_page.dart';
+import 'package:whatsapp_clone/src/search/search_delegate.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -19,7 +23,7 @@ class HomePage extends StatelessWidget {
           bottom: TabBar(
             labelPadding: EdgeInsets.symmetric(horizontal: 0.0),
             indicatorColor: Colors.white,
-            labelStyle: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            labelStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
             tabs: [
               Tab(icon: Icon(Icons.camera_alt)),
               Tab(text: 'CHATS',),
@@ -29,17 +33,27 @@ class HomePage extends StatelessWidget {
             ]
             ),
             actions: [
-              IconButton(icon: Icon(Icons.search), onPressed: (){}),
-              Menu()
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: (){
+                  showSearch(
+                    context: context,
+                    delegate: DataSearch()
+                  );
+                }
+              ),
+              _menu( context )
             ],
         ),
-        body: TabBarView(
-          children: [
-            CamaraPage(),
-            ChatPage(),
-            EstadosPage(),
-            LlamadasPage()
-          ]
+        body: 
+        /*CustomScrollView(
+          slivers: [
+            _crearAppBar( context ),
+
+          ],
+        ),*/
+        TabBarView(
+          children: _paginas()
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: (){},
@@ -49,12 +63,37 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-}
 
-class Menu extends StatelessWidget {
+  Widget _crearAppBar(BuildContext context){
+    return SliverAppBar(
+      expandedHeight: 100.0,
+      title: Text('WhatsApp_Clone'),
+      actions: _acciones( context ),
+      backgroundColor: Color.fromRGBO(18, 114, 126, 1),
+      flexibleSpace: FlexibleSpaceBar(
+        centerTitle: false,
+        title: null
+      ),
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  List<Widget> _acciones(BuildContext context){
+    return [
+      IconButton(
+        icon: Icon(Icons.search),
+        onPressed: (){
+          showSearch(
+            context: context,
+            delegate: DataSearch()
+          );
+        }
+      ),
+      _menu( context )
+    ];
+  }
+
+  
+  Widget _menu(BuildContext context){
     return PopupMenuButton(
       itemBuilder: (BuildContext context){
         return [
@@ -71,10 +110,23 @@ class Menu extends StatelessWidget {
             child: Text('Mensajes Destacados')
           ),
           PopupMenuItem(
-            child: Text('Ajustes')
+            child: GestureDetector(
+              child: Text('Ajustes'),
+              onTap: null
+            )
           ),
         ];
       }
     );
   }
+
+  List<Widget> _paginas(){
+    return [
+            CamaraPage(),
+            ChatPage(),
+            EstadosPage(),
+            LlamadasPage()
+      ];
+  }
+
 }
