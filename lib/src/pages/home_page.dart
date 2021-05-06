@@ -46,12 +46,6 @@ class HomePage extends StatelessWidget {
             ],
         ),
         body: 
-        /*CustomScrollView(
-          slivers: [
-            _crearAppBar( context ),
-
-          ],
-        ),*/
         TabBarView(
           children: _paginas()
           ),

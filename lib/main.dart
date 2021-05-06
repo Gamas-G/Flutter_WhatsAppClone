@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/src/pages/home_page.dart';
 import 'package:whatsapp_clone/src/pages/image_alert.dart';
+import 'package:whatsapp_clone/src/widgets/imagen.dart';
  
 void main() => runApp(MyApp());
  
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/'     : (BuildContext context) => HomePage(),
-        'alert' : (BuildContext context) => ImageAlert()
+        'alert' : (BuildContext context) => ImageAlert(),
+        'imagen' : (BuildContext context) => Imagen()
       },
       // home: HomePage()
     );

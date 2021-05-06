@@ -11,7 +11,7 @@ class EstadosPage extends StatelessWidget {
               children: [
                 ClipRRect(
               borderRadius: BorderRadius.circular(50.0),
-              child: Image.asset('assets/desconocido.jpg',
+              child: Image.asset('assets/gamas.jpg',
               height: 56.0,
               width: 56.0,
               fit: BoxFit.cover
